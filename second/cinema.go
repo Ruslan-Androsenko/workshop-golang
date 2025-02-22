@@ -1,52 +1,70 @@
 package second
 
 func findBestSeatDist(row []int) int {
-	var counter, maximum int
+	var (
+		counter, maxBegin, maxMiddle int
+		hasBegin, hasMiddle, hasEnd  bool
+		lastIndex                    = len(row) - 1
+	)
 
-	for _, val := range row {
+	for index, val := range row {
+		if val == 0 {
+			if index == 0 {
+				hasBegin = true
+			} else if !hasBegin && !hasMiddle && index > 0 && index < lastIndex {
+				hasMiddle = true
+			}
+		}
+
+		if index == lastIndex {
+			hasEnd = true
+		}
+
 		if val == 0 {
 			counter++
 		} else if counter > 0 {
-			if counter > maximum {
-				maximum = counter
+			if hasBegin {
+				maxBegin = counter
+				hasBegin = false
+			} else if hasMiddle && counter > maxMiddle {
+				maxMiddle = counter
+			}
+
+			if index == lastIndex {
+				hasEnd = false
 			}
 
 			counter = 0
 		}
 	}
 
-	if counter > maximum {
-		maximum = counter
+	if counter > maxMiddle {
+		maxMiddle = counter
 	}
 
-	rowBegin := row[:maximum]
-	rowEnd := row[len(row)-maximum:]
+	halfMiddle := getHalf(maxMiddle)
 
-	if hasExistEmptyRange(rowBegin, maximum) {
-		return maximum
+	if maxBegin > 0 && maxBegin >= halfMiddle {
+		return maxBegin
 	}
 
-	if hasExistEmptyRange(rowEnd, maximum) {
-		return maximum
+	if hasEnd && counter >= halfMiddle {
+		return counter
 	}
 
-	diff := maximum / 2
-
-	if maximum%2 != 0 {
-		diff++
-	}
-
-	return diff
+	return halfMiddle
 }
 
-func hasExistEmptyRange(row []int, maximum int) bool {
-	var counter int
+func getHalf(maximum int) int {
+	if maximum > 0 {
+		diff := maximum / 2
 
-	for _, val := range row {
-		if val == 0 {
-			counter++
+		if maximum%2 != 0 {
+			diff++
 		}
+
+		return diff
 	}
 
-	return counter == maximum
+	return 0
 }

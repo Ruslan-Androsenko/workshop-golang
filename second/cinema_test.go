@@ -38,6 +38,33 @@ func TestFindBestSeatDist(t *testing.T) {
 			input:    []int{0, 0, 0, 1, 1},
 			expected: 3,
 		},
+
+		{
+			name:     "additional border case 01",
+			input:    []int{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+			expected: 5,
+		},
+		{
+			name:     "additional border case 02",
+			input:    []int{1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+			expected: 5,
+		},
+
+		{
+			name:     "additional border case 03",
+			input:    []int{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+			expected: 6,
+		},
+		{
+			name:     "additional border case 04",
+			input:    []int{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+			expected: 6,
+		},
+		{
+			name:     "additional border case 05",
+			input:    []int{1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+			expected: 5,
+		},
 	}
 
 	for _, tc := range tests {
