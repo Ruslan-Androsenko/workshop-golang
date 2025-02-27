@@ -1,6 +1,7 @@
 package second
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -70,7 +71,9 @@ func TestFindBestSeatDist(t *testing.T) {
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
-			result := findBestSeatDist(tc.input)
+			//result := findBestSeatDist(tc.input)
+			result := maxDistToClosets(tc.input)
+			fmt.Println(result)
 			require.Equal(t, tc.expected, result)
 		})
 	}

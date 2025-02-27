@@ -54,17 +54,3 @@ func findBestSeatDist(row []int) int {
 
 	return halfMiddle
 }
-
-func getHalf(maximum int) int {
-	if maximum > 0 {
-		diff := maximum / 2
-
-		if maximum%2 != 0 {
-			diff++
-		}
-
-		return diff
-	}
-
-	return 0
-}
